@@ -2,5 +2,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-	site: 'https://Miguuusa.github.io',
+	site: 'https://miguuusa.github.io',
 });
