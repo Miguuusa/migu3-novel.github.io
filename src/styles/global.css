@@ -1,0 +1,86 @@
+:root {
+	/* 色 */
+	--background: #f7f5f0;
+	--text: #292929;
+	--text-soft: #555;
+	--text-muted: #777;
+	--text-light: #999;
+
+	--border: #ccc;
+	--border-light: #ddd;
+
+	/* FLaSHのアクセント */
+	--accent: #b84f3a;
+
+	/* ページ幅 */
+	--content-width: 800px;
+	--page-width: 720px;
+	--reading-width: 680px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--background);
+	color: var(--text);
+
+	font-family:
+		"Yu Mincho",
+		"YuMincho",
+		"Hiragino Mincho ProN",
+		serif;
+}
+
+a {
+	color: inherit;
+}
+
+/*
+ * HOMEなどへ戻るリンク
+ */
+.back {
+	color: var(--text-muted);
+	text-decoration: none;
+	font-size: 0.8rem;
+	letter-spacing: 0.12em;
+}
+
+.back:hover {
+	color: var(--accent);
+}
+
+/*
+ * ページ上部の小さな英字
+ */
+.label {
+	color: var(--accent);
+	font-size: 0.75rem;
+	letter-spacing: 0.2em;
+}
+
+/*
+ * ページ説明
+ */
+.description {
+	color: var(--text-muted);
+}
+
+/*
+ * 文字を選択したとき
+ */
+::selection {
+	background: #e8d4ce;
+}
+
+@media (max-width: 600px) {
+	body {
+		-webkit-text-size-adjust: 100%;
+	}
+}

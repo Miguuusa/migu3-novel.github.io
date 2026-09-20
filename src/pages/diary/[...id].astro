@@ -1,0 +1,139 @@
+---
+import { getCollection, render } from 'astro:content';
+import '../../styles/global.css';
+
+export async function getStaticPaths() {
+	const entries = await getCollection('diary');
+
+	return entries
+		.filter((entry) => entry.data.type === 'long')
+		.map((entry) => ({
+			params: { id: entry.id },
+			props: { entry },
+		}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>{entry.data.title} | DIARY | FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/diary/">← DIARY</a>
+
+			<header>
+				<time>
+					{entry.data.date.toLocaleDateString('ja-JP', {
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+					})}
+				</time>
+
+				<h1>{entry.data.title}</h1>
+			</header>
+
+			<article>
+				<Content />
+			</article>
+
+			<footer>
+				<a class="back" href="/diary/">
+					← DIARYに戻る
+				</a>
+			</footer>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--reading-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 80px 0 70px;
+	}
+
+	time {
+		display: block;
+		color: var(--text-light);
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		margin-bottom: 18px;
+	}
+
+	h1 {
+		font-size: 1.8rem;
+		font-weight: normal;
+		letter-spacing: 0.08em;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	article {
+		font-size: 1rem;
+		line-height: 2.1;
+		letter-spacing: 0.03em;
+	}
+
+	article :global(p) {
+		margin: 0 0 1.8em;
+	}
+
+	article :global(h2) {
+		font-size: 1.25rem;
+		font-weight: normal;
+		letter-spacing: 0.08em;
+
+		margin: 3.5em 0 1.5em;
+		padding-bottom: 10px;
+
+		border-bottom: 1px solid var(--border);
+	}
+
+	article :global(h3) {
+		font-size: 1.1rem;
+		font-weight: normal;
+		margin: 3em 0 1.3em;
+	}
+
+	footer {
+		margin-top: 100px;
+		padding-top: 30px;
+		border-top: 1px solid var(--border);
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 60px 0 55px;
+		}
+
+		h1 {
+			font-size: 1.5rem;
+		}
+
+		article {
+			font-size: 1rem;
+			line-height: 2;
+		}
+
+		footer {
+			margin-top: 70px;
+		}
+	}
+</style>

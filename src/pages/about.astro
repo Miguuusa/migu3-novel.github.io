@@ -1,0 +1,192 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>ABOUT | FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/">← HOME</a>
+
+			<header>
+				<p class="label">PROFILE</p>
+
+				<h1>ABOUT</h1>
+			</header>
+
+			<section>
+				<h2>FLaSH</h2>
+
+				<p>
+					個人で運営している二次創作サイトです。
+				</p>
+
+				<p>
+					夢小説、夢絵、日々の記録などを掲載しています。
+				</p>
+			</section>
+
+			<section class="profile">
+				<h2>PROFILE</h2>
+
+				<p class="name">
+					Migusa/みぐさ
+				</p>
+
+				<p>
+					ドーナツが好き。
+				</p>
+			</section>
+
+			<section>
+				<h2>CONTENTS</h2>
+
+				<dl>
+					<div>
+						<dt>NOVELS</dt>
+						<dd>夢小説を掲載しています。</dd>
+					</div>
+
+					<div>
+						<dt>DIARY</dt>
+						<dd>日々のことや、制作についての記録です。</dd>
+					</div>
+
+					<div>
+						<dt>GALLERY</dt>
+						<dd>キャラシート他イラスト作品へのリンクを掲載しています。</dd>
+					</div>
+				</dl>
+			</section>
+
+			<section>
+				<h2>LINKS</h2>
+
+				<p class="note">
+					SNS用リンク。準備中。
+				</p>
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--page-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 80px 0;
+	}
+
+	.label {
+		margin: 0 0 10px;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: normal;
+		letter-spacing: 0.15em;
+		margin: 0;
+	}
+
+	section {
+		padding: 45px 0;
+		border-top: 1px solid var(--border);
+		line-height: 2;
+	}
+
+	section:last-child {
+		border-bottom: 1px solid var(--border);
+	}
+
+	h2 {
+		color: #888;
+		font-size: 0.75rem;
+		font-weight: normal;
+		letter-spacing: 0.2em;
+		margin: 0 0 30px;
+	}
+
+	section p {
+		color: var(--text-soft);
+	}
+
+	section p:last-child {
+		margin-bottom: 0;
+	}
+
+	.name {
+		color: var(--text);
+		font-size: 1.3rem;
+		letter-spacing: 0.08em;
+		margin-bottom: 20px;
+	}
+
+	dl {
+		margin: 0;
+	}
+
+	dl div {
+		display: grid;
+		grid-template-columns: 130px 1fr;
+		gap: 30px;
+
+		padding: 18px 0;
+
+		border-bottom: 1px solid var(--border-light);
+	}
+
+	dl div:last-child {
+		border-bottom: 0;
+	}
+
+	dt {
+		font-size: 0.8rem;
+		letter-spacing: 0.12em;
+	}
+
+	dd {
+		color: var(--text-soft);
+		margin: 0;
+	}
+
+	.note {
+		color: var(--text-muted);
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 60px 0;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		section {
+			padding: 35px 0;
+		}
+
+		dl div {
+			display: block;
+		}
+
+		dt {
+			margin-bottom: 5px;
+		}
+	}
+</style>

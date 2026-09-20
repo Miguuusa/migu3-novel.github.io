@@ -1,0 +1,126 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<header>
+				<h1>FLaSH<span id="flash-dot">.</span></h1>
+			</header>
+
+			<nav>
+				<a href="/novels/">NOVELS</a>
+				<a href="/diary/">DIARY</a>
+				<a href="/gallery/">GALLERY</a>
+				<a href="/about/">ABOUT</a>
+			</nav>
+		</main>
+
+		<script>
+			const colors = [
+				'#b84f3a',
+				'#d59b2d',
+				'#4f78a8',
+				'#80639b',
+				'#56806a',
+				'#b45f7a',
+			];
+
+			const dot = document.querySelector('#flash-dot');
+
+			if (dot instanceof HTMLElement) {
+				const randomColor =
+					colors[Math.floor(Math.random() * colors.length)];
+
+				dot.style.color = randomColor;
+			}
+		</script>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		padding: 70px 30px;
+	}
+
+	header {
+		margin: 35px 0 50px;
+	}
+
+	h1 {
+		font-size: 2.7rem;
+		font-weight: normal;
+		letter-spacing: 0.14em;
+		margin: 0;
+	}
+
+	#flash-dot {
+		color: var(--accent);
+		transition: color 0.2s ease;
+	}
+
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		padding: 22px 5px;
+
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+	}
+
+	nav a {
+		color: var(--text);
+		text-decoration: none;
+
+		font-size: 0.85rem;
+		letter-spacing: 0.15em;
+	}
+
+	nav a:hover {
+		color: var(--accent);
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 45px 22px;
+		}
+
+		header {
+			margin: 25px 0 40px;
+		}
+
+		h1 {
+			font-size: 2.2rem;
+		}
+
+		nav {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			padding: 0;
+		}
+
+		nav a {
+			padding: 17px 5px;
+		}
+
+		nav a:nth-child(odd) {
+			border-right: 1px solid var(--border);
+		}
+
+		nav a:nth-child(-n+2) {
+			border-bottom: 1px solid var(--border);
+		}
+	}
+</style>

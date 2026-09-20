@@ -1,0 +1,185 @@
+---
+import { getCollection, render } from 'astro:content';
+import '../../styles/global.css';
+
+const diaryEntries = await getCollection('diary');
+
+diaryEntries.sort(
+	(a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+
+const renderedEntries = await Promise.all(
+	diaryEntries.map(async (entry) => {
+		const { Content } = await render(entry);
+
+		return {
+			entry,
+			Content,
+		};
+	})
+);
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>DIARY | FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/">← HOME</a>
+
+			<header>
+				<p class="label">JOURNAL</p>
+
+				<h1>DIARY</h1>
+
+				<p class="description">
+					日々のこと、制作のこと。
+				</p>
+			</header>
+
+			<section class="diary-list">
+				{
+					renderedEntries.map(({ entry, Content }) => (
+						<article class="diary-entry">
+							<time>
+								{entry.data.date.toLocaleDateString('ja-JP', {
+									year: 'numeric',
+									month: '2-digit',
+									day: '2-digit',
+								})}
+							</time>
+
+							<h2>{entry.data.title}</h2>
+
+							{entry.data.type === 'short' ? (
+								<div class="entry-content">
+									<Content />
+								</div>
+							) : (
+								<div class="long-entry">
+									{
+										entry.data.summary && (
+											<p>{entry.data.summary}</p>
+										)
+									}
+
+									<a href={`/diary/${entry.id}`}>
+										続きを読む →
+									</a>
+								</div>
+							)}
+						</article>
+					))
+				}
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--page-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 80px 0;
+	}
+
+	.label {
+		margin: 0 0 10px;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: normal;
+		letter-spacing: 0.15em;
+		margin: 0 0 15px;
+	}
+
+	.description {
+		margin: 0;
+	}
+
+	.diary-list {
+		border-top: 1px solid var(--border);
+	}
+
+	.diary-entry {
+		padding: 45px 5px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	time {
+		display: block;
+		color: var(--text-light);
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		margin-bottom: 12px;
+	}
+
+	h2 {
+		font-size: 1.3rem;
+		font-weight: normal;
+		letter-spacing: 0.05em;
+		margin: 0 0 25px;
+	}
+
+	.entry-content {
+		color: var(--text-soft);
+		font-size: 0.95rem;
+		line-height: 2;
+	}
+
+	.entry-content :global(p) {
+		margin: 0 0 1.3em;
+	}
+
+	.entry-content :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.long-entry {
+		color: var(--text-soft);
+		line-height: 2;
+	}
+
+	.long-entry p {
+		margin: 0 0 20px;
+	}
+
+	.long-entry a {
+		color: var(--text-muted);
+		font-size: 0.8rem;
+		letter-spacing: 0.08em;
+		text-decoration: none;
+	}
+
+	.long-entry a:hover {
+		opacity: 0.5;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 60px 0;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.diary-entry {
+			padding: 35px 2px;
+		}
+	}
+</style>

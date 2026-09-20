@@ -1,0 +1,178 @@
+---
+import '../styles/global.css';
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>GALLERY | FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/">← HOME</a>
+
+			<header>
+				<p class="label">ILLUSTRATIONS</p>
+
+				<h1>GALLERY</h1>
+
+				<p class="description">
+					イラスト作品のご案内。
+				</p>
+			</header>
+
+			<section class="gallery-list">
+				<div class="gallery-card">
+					<div class="info">
+						<p class="category">ILLUSTRATIONS</p>
+
+						<h2>イラスト作品</h2>
+
+						<p class="text">
+							描いたイラストをまとめています。
+							外部ギャラリーへのリンクを掲載予定です。
+						</p>
+					</div>
+
+					<span class="coming-soon">
+						COMING SOON
+					</span>
+				</div>
+
+				<div class="gallery-card">
+					<div class="info">
+						<p class="category">PIXIV</p>
+
+						<h2>pixiv</h2>
+
+						<p class="text">
+							pixivを利用する場合は、
+							ここから作品ページへ移動できるようにできます。
+						</p>
+					</div>
+
+					<span class="coming-soon">
+						COMING SOON
+					</span>
+				</div>
+
+				<div class="gallery-card">
+					<div class="info">
+						<p class="category">OTHER</p>
+
+						<h2>その他</h2>
+
+						<p class="text">
+							SNSや別の作品置き場など、
+							その他のリンクを追加できます。
+						</p>
+					</div>
+
+					<span class="coming-soon">
+						COMING SOON
+					</span>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 80px 0;
+	}
+
+	.label {
+		margin: 0 0 10px;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: normal;
+		letter-spacing: 0.15em;
+		margin: 0 0 15px;
+	}
+
+	.description {
+		margin: 0;
+	}
+
+	.gallery-list {
+		border-top: 1px solid var(--border);
+	}
+
+	.gallery-card {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 50px;
+
+		padding: 45px 5px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.info {
+		max-width: 520px;
+	}
+
+	.category {
+		color: var(--text-light);
+		font-size: 0.7rem;
+		letter-spacing: 0.18em;
+		margin: 0 0 12px;
+	}
+
+	h2 {
+		font-size: 1.4rem;
+		font-weight: normal;
+		letter-spacing: 0.06em;
+		margin: 0 0 15px;
+	}
+
+	.text {
+		color: #666;
+		font-size: 0.9rem;
+		line-height: 1.9;
+		margin: 0;
+	}
+
+	.coming-soon {
+		color: #aaa;
+		font-size: 0.65rem;
+		letter-spacing: 0.12em;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 60px 0;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.gallery-card {
+			display: block;
+			padding: 35px 2px;
+		}
+
+		.coming-soon {
+			display: block;
+			margin-top: 25px;
+		}
+	}
+</style>

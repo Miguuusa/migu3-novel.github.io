@@ -1,0 +1,184 @@
+---
+import { getCollection, render } from 'astro:content';
+import '../../../styles/global.css';
+
+export async function getStaticPaths() {
+	const works = await getCollection('works');
+	const novels = await getCollection('novels');
+
+	return works.map((work) => {
+		const episodes = novels
+			.filter((novel) => novel.data.workId === work.id)
+			.sort((a, b) => a.data.episode - b.data.episode);
+
+		return {
+			params: {
+				workId: work.id,
+			},
+			props: {
+				work,
+				episodes,
+			},
+		};
+	});
+}
+
+const { work, episodes } = Astro.props;
+const { Content } = await render(work);
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		<title>{work.data.title} | FLasH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/novels/">← NOVELS</a>
+
+			<header>
+				<p class="label">NOVEL</p>
+
+				<h1>{work.data.title}</h1>
+
+				<div class="meta">
+					<span>{work.data.genre}</span>
+					<span>{work.data.status}</span>
+				</div>
+			</header>
+
+			<section class="introduction">
+				<Content />
+			</section>
+
+			<section class="contents">
+				<h2>CONTENTS</h2>
+
+				{
+					episodes.map((episode) => (
+						<a href={`/novels/${episode.id}`}>
+							<span>
+								{episode.data.episode
+									.toString()
+									.padStart(2, '0')}
+							</span>
+
+							<p>{episode.data.title}</p>
+						</a>
+					))
+				}
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--page-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 90px 0 60px;
+	}
+
+	.label {
+		margin: 0 0 10px;
+	}
+
+	h1 {
+		font-size: 2.2rem;
+		font-weight: normal;
+		letter-spacing: 0.1em;
+		margin: 0 0 25px;
+	}
+
+	.meta {
+		display: flex;
+		gap: 10px;
+	}
+
+	.meta span {
+		color: #888;
+		border: 1px solid #bbb;
+		padding: 3px 8px;
+		font-size: 0.7rem;
+	}
+
+	.introduction {
+		color: var(--text-soft);
+		line-height: 2;
+		margin-bottom: 80px;
+	}
+
+	.introduction :global(p) {
+		margin: 0 0 1.5em;
+	}
+
+	.introduction :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.contents {
+		border-top: 1px solid var(--border);
+	}
+
+	.contents h2 {
+		color: #888;
+		font-size: 0.8rem;
+		font-weight: normal;
+		letter-spacing: 0.2em;
+
+		border-bottom: 1px solid var(--border);
+
+		padding: 20px 0;
+		margin: 0;
+	}
+
+	.contents a {
+		display: flex;
+		align-items: center;
+		gap: 30px;
+
+		color: inherit;
+		text-decoration: none;
+
+		padding: 20px 5px;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.contents a:hover {
+		opacity: 0.55;
+	}
+
+	.contents span {
+		color: var(--text-light);
+		font-size: 0.8rem;
+	}
+
+	.contents p {
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 65px 0 50px;
+		}
+
+		h1 {
+			font-size: 1.8rem;
+		}
+
+		.introduction {
+			margin-bottom: 60px;
+		}
+	}
+</style>

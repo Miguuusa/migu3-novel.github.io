@@ -1,0 +1,155 @@
+---
+import { getCollection } from 'astro:content';
+import '../../styles/global.css';
+
+const works = await getCollection('works');
+
+works.sort((a, b) => a.data.order - b.data.order);
+---
+
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>NOVELS | FLaSH</title>
+	</head>
+
+	<body>
+		<main>
+			<a class="back" href="/">← HOME</a>
+
+			<header>
+				<p class="label">WRITINGS</p>
+
+				<h1>NOVELS</h1>
+
+				<p class="description">
+					小説作品を置いています。
+				</p>
+			</header>
+
+			<section class="works">
+				{
+					works.map((work) => (
+						<a
+							class="work-card"
+							href={`/novels/works/${work.id}`}
+						>
+							<div class="info">
+								<div class="meta">
+									<span>{work.data.genre}</span>
+									<span>{work.data.status}</span>
+								</div>
+
+								<h2>{work.data.title}</h2>
+
+								<p>{work.data.description}</p>
+							</div>
+
+							<span class="view">VIEW →</span>
+						</a>
+					))
+				}
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: var(--content-width);
+		margin: 0 auto;
+		padding: 70px 30px 120px;
+	}
+
+	header {
+		margin: 80px 0;
+	}
+
+	.label {
+		margin: 0 0 10px;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: normal;
+		letter-spacing: 0.15em;
+		margin: 0 0 15px;
+	}
+
+	.description {
+		margin: 0;
+	}
+
+	.works {
+		border-top: 1px solid var(--border);
+	}
+
+	.work-card {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 40px;
+
+		padding: 40px 5px;
+		border-bottom: 1px solid var(--border);
+
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.work-card:hover {
+		opacity: 0.55;
+	}
+
+	.meta {
+		display: flex;
+		gap: 10px;
+		margin-bottom: 15px;
+	}
+
+	.meta span {
+		color: #888;
+		border: 1px solid #bbb;
+		padding: 3px 8px;
+		font-size: 0.7rem;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		font-weight: normal;
+		margin: 0 0 12px;
+	}
+
+	.info > p {
+		color: #666;
+		margin: 0;
+		line-height: 1.8;
+	}
+
+	.view {
+		color: var(--text-muted);
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		white-space: nowrap;
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 50px 22px 90px;
+		}
+
+		header {
+			margin: 60px 0;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.work-card {
+			gap: 20px;
+			padding: 35px 2px;
+		}
+	}
+</style>
